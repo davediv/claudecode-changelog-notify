@@ -33,6 +33,11 @@ function truncateMessage(message: string, maxLength: number): string {
 	return message.slice(0, maxLength - 4) + '\n...';
 }
 
+// Escape special characters for Telegram Markdown V1
+function escapeTelegramMarkdown(text: string): string {
+	return text.replace(/([_*`\[])/g, '\\$1');
+}
+
 // Parse changelog markdown into version entries
 function parseChangelog(markdown: string): VersionEntry[] {
 	const entries: VersionEntry[] = [];
@@ -95,10 +100,11 @@ async function sendTelegram(
 ): Promise<NotificationResult> {
 	const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
 	const truncatedMessage = truncateMessage(message, MAX_TELEGRAM_LENGTH);
+	const escapedMessage = escapeTelegramMarkdown(truncatedMessage);
 
 	const body: Record<string, string | number> = {
 		chat_id: chatId,
-		text: truncatedMessage,
+		text: escapedMessage,
 		parse_mode: 'Markdown',
 	};
 
