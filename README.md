@@ -1,6 +1,6 @@
 # ClaudeCode Changelog Notify
 
-Cloudflare Worker that monitors the [Claude Code changelog](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) every 15 minutes and sends notifications to Telegram, Discord, and/or Slack when new updates are detected.
+Cloudflare Worker that monitors the Claude Code changelog every 15 minutes and sends notifications to Telegram, Discord, and/or Slack when new updates are detected.
 
 ## Features
 
